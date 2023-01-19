@@ -1,1 +1,12 @@
-<p>chat-form works!</p>
+<form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <input type="text" placeholder="Enter message here..." matInput />
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    aria-label="Send button"
+  >
+    Send
+  </button>
+</form>
