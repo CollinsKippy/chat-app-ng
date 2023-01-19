@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "chat-app-3dc3c": {
+      "hosting": {
+        "chat-app-ng": [
+          "chat-app-3dc3c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "chat-app-3dc3c"
+  }
+}
