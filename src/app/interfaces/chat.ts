@@ -1,7 +1,10 @@
+import { FieldValue, Timestamp } from '@angular/fire/firestore';
 import { FirebaseTimestamp } from './firebase-timestamp';
 
 export interface Chat {
-  id: string;
+  id?: string;
   message: string;
-  createdAt: FirebaseTimestamp;
+  createdAt: () => FieldValue;
+  userId: string;
+  displayName: string | null;
 }

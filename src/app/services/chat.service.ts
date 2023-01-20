@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { collectionData, Firestore, collection } from '@angular/fire/firestore';
+import {
+  collectionData,
+  Firestore,
+  collection,
+  addDoc,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Chat } from '../interfaces/chat';
 
@@ -7,12 +12,15 @@ import { Chat } from '../interfaces/chat';
   providedIn: 'root',
 })
 export class ChatService {
-  private _collection = collection(this.firestore, 'chats');
+  private _collectionRef = collection(this.firestore, 'chats');
   readonly chats$: Observable<Chat[]> = collectionData(
-    this._collection
+    this._collectionRef
   ) as Observable<Chat[]>;
 
   constructor(private firestore: Firestore) {}
 
-
+  addMessage(chat: Chat) {
+    const createdChat = addDoc(this._collectionRef, chat);
+    console.log({ createdChat });
+  }
 }

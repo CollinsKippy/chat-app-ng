@@ -13,7 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { User } from '@angular/fire/auth';
-import { addDoc } from '@angular/fire/firestore';
+import { addDoc, serverTimestamp, Timestamp } from '@angular/fire/firestore';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-chat-form',
@@ -39,7 +40,10 @@ export class ChatFormComponent implements OnInit, OnDestroy {
 
   authSub: Subscription | undefined;
 
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
     this.authSub = this.authService.isAuthenticated$?.subscribe(
@@ -53,6 +57,13 @@ export class ChatFormComponent implements OnInit, OnDestroy {
   onSubmit(user: User) {
     const message = this.chatForm.value as string;
     console.log({ user });
+
+    this.chatService.addMessage({
+      message: message,
+      createdAt: serverTimestamp,
+      userId: user.uid,
+      displayName: user.displayName,
+    });
   }
 
   ngOnDestroy(): void {
