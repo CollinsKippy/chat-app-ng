@@ -1,5 +1,8 @@
 # Angular Chat App with Firebase
 
+Added Angular Firebase Successfully.\
+Added Standalone Components for Navbar, ChatForm and ChatList.\
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
 
 ## Development server
