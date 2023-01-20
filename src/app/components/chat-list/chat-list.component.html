@@ -3,6 +3,8 @@
   <mat-list-item *ngFor="let chat of chats">
     <mat-icon matListItemIcon>chat</mat-icon>
     <div matListItemTitle>{{ chat.message }}</div>
-    <div matListItemLine>{{ chat.createdAt | date }}</div>
+    <div matListItemLine>
+      {{ chat.createdAt | firebaseTimestamp | date: "dd-MMM-yyyy hh:mm a" }}
+    </div>
   </mat-list-item>
 </mat-list>

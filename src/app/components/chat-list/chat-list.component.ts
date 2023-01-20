@@ -1,25 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-
-type Chat = {
-  id: string;
-  message: string;
-  createdAt: Date;
-};
+import { Chat } from 'src/app/interfaces/chat';
+import { FirebaseTimestampPipe } from 'src/app/pipes/firebase-timestamp.pipe';
 
 @Component({
   selector: 'app-chat-list',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule],
+  imports: [CommonModule, MatListModule, MatIconModule, FirebaseTimestampPipe],
   templateUrl: './chat-list.component.html',
   styleUrls: ['./chat-list.component.scss'],
 })
 export class ChatListComponent {
-  chats: Chat[] = [
-    { id: '1', message: 'Hi there, John!', createdAt: new Date() },
-    { id: '2', message: 'Hi there, Jill!', createdAt: new Date() },
-    { id: '3', message: 'Hi there, Max!', createdAt: new Date() },
-  ];
+  @Input() chats: Chat[] | null = [];
 }
