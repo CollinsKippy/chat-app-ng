@@ -3,8 +3,8 @@ import { FirebaseTimestamp } from './firebase-timestamp';
 
 export interface Chat {
   id?: string;
-  message: string;
-  createdAt: () => FieldValue;
+  message: string | null | undefined;
+  createdAt: any;
   userId: string;
   displayName: string | null;
 }

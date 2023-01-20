@@ -32,35 +32,37 @@ import { ChatService } from 'src/app/services/chat.service';
 })
 export class ChatFormComponent implements OnInit, OnDestroy {
   chatForm = new FormGroup({
-    message: new FormControl('', {
+    message: new FormControl<string>('', {
       validators: [Validators.required, Validators.minLength(2)],
       asyncValidators: [],
     }),
   });
 
   authSub: Subscription | undefined;
+  showError: boolean = false;
 
   constructor(
     public authService: AuthService,
     private chatService: ChatService
   ) {}
 
-  ngOnInit(): void {
-    this.authSub = this.authService.isAuthenticated$?.subscribe(
-      (isAuthenticated) => {
-        console.log({ isAuthenticated });
-        isAuthenticated ? this.chatForm?.enable() : this.chatForm?.disable();
-      }
-    );
-  }
+  ngOnInit(): void {}
 
   onSubmit(user: User) {
-    const message = this.chatForm.value as string;
-    console.log({ user });
+    if (this.chatForm?.invalid || !user) {
+      this.showError = true;
+      console.log(this.chatForm);
+      return;
+    }
+
+    const message = this.message?.value;
+    console.log(this.message);
+    const timestamp = serverTimestamp();
+    console.log({ timestamp, message });
 
     this.chatService.addMessage({
       message: message,
-      createdAt: serverTimestamp,
+      createdAt: timestamp,
       userId: user.uid,
       displayName: user.displayName,
     });

@@ -1,7 +1,12 @@
 <ng-container *ngIf="this.authService.user$ | async as user">
   <form [formGroup]="chatForm" (ngSubmit)="onSubmit(user)">
     <mat-form-field appearance="fill">
-      <input type="text" placeholder="Enter message here..." matInput />
+      <input
+        type="text"
+        placeholder="Enter message here..."
+        formControlName="message"
+        matInput
+      />
     </mat-form-field>
 
     <button
@@ -13,4 +18,5 @@
       Send
     </button>
   </form>
+  <p *ngIf="showError">Error on form.</p>
 </ng-container>
