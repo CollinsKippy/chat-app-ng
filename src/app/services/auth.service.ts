@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import {
+  Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+} from '@angular/fire/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user$: Observable<User | any> | undefined;
+  private _userSubject = new BehaviorSubject<User | null>(null);
+  readonly user$ = this._userSubject.asObservable();
 
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  readonly isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  private _isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  readonly isAuthenticated$ = this._isAuthenticatedSubject.asObservable();
 
   constructor(private auth: Auth) {}
 
@@ -20,8 +25,8 @@ export class AuthService {
         this.auth,
         new GoogleAuthProvider()
       );
-      this.user$ = of(signInResult?.user);
-      this.isAuthenticatedSubject.next(!signInResult.user.isAnonymous);
+      this._userSubject.next(signInResult?.user);
+      this._isAuthenticatedSubject.next(!signInResult.user.isAnonymous);
 
       console.log({ signInResult });
     } catch (error) {
@@ -31,7 +36,7 @@ export class AuthService {
 
   logout() {
     this.auth.signOut();
-    this.user$ = of(null);
-    this.isAuthenticatedSubject.next(false);
+    this._userSubject.next(null);
+    this._isAuthenticatedSubject.next(false);
   }
 }
