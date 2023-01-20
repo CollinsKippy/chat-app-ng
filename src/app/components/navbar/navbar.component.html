@@ -7,15 +7,29 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span>My Chat App</span>
+
   <span class="spacer"></span>
-  <button
-    mat-button
-    class="icon favorite-icon"
-    aria-label="Example button with heart icon"
-  >
-    Login
-  </button>
-  <button mat-button class="icon" aria-label="Example button with share icon">
-    Logout
-  </button>
+
+  <ng-template #showLogin>
+    <button
+      mat-button
+      (click)="onLogin()"
+      class="icon favorite-icon"
+      aria-label="Example button with heart icon"
+    >
+      Login
+    </button>
+  </ng-template>
+
+  <ng-container *ngIf="authService.user$ | async as user; else showLogin">
+    <small>{{ user?.displayName }}</small> &nbsp; | &nbsp;
+    <button
+      mat-button
+      (click)="onLogout()"
+      class="icon"
+      aria-label="Example button with share icon"
+    >
+      Logout
+    </button>
+  </ng-container>
 </mat-toolbar>

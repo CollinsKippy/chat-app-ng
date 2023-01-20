@@ -1,12 +1,16 @@
-<form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <input type="text" placeholder="Enter message here..." matInput />
-  </mat-form-field>
-  <button
-    mat-raised-button
-    color="primary"
-    aria-label="Send button"
-  >
-    Send
-  </button>
-</form>
+<ng-container *ngIf="this.authService.user$ | async as user">
+  <form [formGroup]="chatForm" (ngSubmit)="onSubmit(user)">
+    <mat-form-field appearance="fill">
+      <input type="text" placeholder="Enter message here..." matInput />
+    </mat-form-field>
+
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      aria-label="Send button"
+    >
+      Send
+    </button>
+  </form>
+</ng-container>

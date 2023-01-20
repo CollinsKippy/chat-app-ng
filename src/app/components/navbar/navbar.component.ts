@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,4 +12,13 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  constructor(public authService: AuthService) {}
+
+  onLogin() {
+    this.authService.login();
+  }
+  onLogout() {
+    this.authService.logout();
+  }
+}
