@@ -4,6 +4,9 @@ import {
   Firestore,
   collection,
   addDoc,
+  query,
+  orderBy,
+  limit,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Chat } from '../interfaces/chat';
@@ -13,8 +16,13 @@ import { Chat } from '../interfaces/chat';
 })
 export class ChatService {
   private _collectionRef = collection(this.firestore, 'chats');
+  private _chatsQuery = query(
+    this._collectionRef,
+    orderBy('createdAt'),
+    limit(10)
+  );
   readonly chats$: Observable<Chat[]> = collectionData(
-    this._collectionRef
+    this._chatsQuery
   ) as Observable<Chat[]>;
 
   constructor(private firestore: Firestore) {}

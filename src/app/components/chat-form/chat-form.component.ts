@@ -51,14 +51,11 @@ export class ChatFormComponent implements OnInit, OnDestroy {
   onSubmit(user: User) {
     if (this.chatForm?.invalid || !user) {
       this.showError = true;
-      console.log(this.chatForm);
       return;
     }
 
     const message = this.message?.value;
-    console.log(this.message);
     const timestamp = serverTimestamp();
-    console.log({ timestamp, message });
 
     this.chatService.addMessage({
       message: message,
