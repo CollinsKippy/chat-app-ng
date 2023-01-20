@@ -2,6 +2,8 @@
 
 Added Angular Firebase Successfully.\
 Added Standalone Components for Navbar, ChatForm and ChatList.\
+Formatted Firebase TimeStamp Using Custom Angular Pipe.\
+Added ChatService for Retrieving Chats.\
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
 
