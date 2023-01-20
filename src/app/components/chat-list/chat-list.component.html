@@ -4,7 +4,8 @@
     <mat-icon matListItemIcon>chat</mat-icon>
     <div matListItemTitle>{{ chat.message }}</div>
     <div matListItemLine>
-      {{ chat.createdAt | firebaseTimestamp | date: "dd-MMM-yyyy hh:mm a" }}
+      {{ chat.createdAt | firebaseTimestamp | date : "dd-MMM-yyyy hh:mm a" }}
     </div>
+    <h4 matListItemLine>TODO: firebase timestamp</h4>
   </mat-list-item>
 </mat-list>

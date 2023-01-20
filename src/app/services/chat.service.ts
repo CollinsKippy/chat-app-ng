@@ -28,7 +28,11 @@ export class ChatService {
   constructor(private firestore: Firestore) {}
 
   async addMessage(chat: Chat) {
-    const createdChat = await addDoc(this._collectionRef, chat);
-    console.log({ createdChat });
+    try {
+      const createdChat = await addDoc(this._collectionRef, chat);
+      console.log({ createdChat });
+    } catch (error) {
+      console.log({ error });
+    }
   }
 }
